@@ -1,11 +1,12 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 const Nav = () => {
-  const isUserLoggedIn = true;
+  const { data: session } = useSession();
   const [providers, setProviders] = useState(null);
   const [toggleDropDownMenu, setToggleDropDownMenu] = useState(false);
 
@@ -103,12 +104,12 @@ const Nav = () => {
 
       {/* Desktop Navigation */}
       <div className='sm:flex hidden'>
-        {isUserLoggedIn ? showDesktopMenu() : showSignIn()}
+        {session?.user ? showDesktopMenu() : showSignIn()}
       </div>
 
       {/* Mobile Navigation */}
       <div className='sm:hidden flex relative'>
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className='flex'>
             <Image
               src='/assets/images/logo.svg'
