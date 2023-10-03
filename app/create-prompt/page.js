@@ -17,6 +17,7 @@ const CreatePrompt = () => {
   const createPost = async (e) => {
     e.preventDefault();
     setSubmitting(true);
+
     try {
       const response = await fetch('/api/prompt/new', {
         method: 'POST',
@@ -28,6 +29,7 @@ const CreatePrompt = () => {
       });
 
       if (response.ok) {
+        console.log(session?.user);
         router.push('/');
       }
     } catch (error) {
