@@ -5,7 +5,7 @@ import PromptCard from './PromptCard';
 
 const Feed = () => {
   const [searchText, setSearchText] = useState('');
-  const [prompts, setPrompts] = useState([]);
+  const [posts, setPosts] = useState([]);
 
   const handleSearchChange = (e) => {
     e.preventDefault();
@@ -16,7 +16,7 @@ const Feed = () => {
     const fetchPrompts = async () => {
       const response = await fetch('/api/prompt');
       const data = await response.json();
-      setPrompts(data);
+      setPosts(data);
     };
 
     fetchPrompts();
@@ -36,12 +36,8 @@ const Feed = () => {
       </form>
 
       <div className='mt-5 prompt_layout'>
-        {prompts.map((prompt) => (
-          <PromptCard
-            key={prompt._id}
-            post={prompt}
-            handleTagClick={() => {}}
-          />
+        {posts.map((post) => (
+          <PromptCard key={post._id} post={post} handleTagClick={() => {}} />
         ))}
       </div>
     </section>

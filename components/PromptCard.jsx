@@ -5,7 +5,10 @@ import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
 
-const PromptCard = ({ post, handleTagClick }) => {
+const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
+  const router = useRouter();
+  const pathName = usePathname();
+  const { data: session } = useSession();
   const [copied, setCopied] = useState('');
 
   const handleCopy = () => {
@@ -45,6 +48,7 @@ const PromptCard = ({ post, handleTagClick }) => {
                 ? '/assets/icons/tick.svg'
                 : '/assets/icons/copy.svg'
             }
+            alt='copy_button'
             width={12}
             height={12}
           />
@@ -58,6 +62,23 @@ const PromptCard = ({ post, handleTagClick }) => {
       >
         {post.tag}
       </p>
+      {session?.user.id === post.creator._id && pathName === '/profile' && (
+        <div className='m-5 flex-center border-t gap-10 border-gray-200'>
+          <p
+            className='mt-3 font-inter text-sm cursor-pointer green_gradient'
+            onClick={handleEdit}
+          >
+            Edit
+          </p>
+
+          <p
+            className='mt-3 font-inter text-sm cursor-pointer orange_gradient'
+            onClick={handleDelete}
+          >
+            Delete
+          </p>
+        </div>
+      )}
     </div>
   );
 };
