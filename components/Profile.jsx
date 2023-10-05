@@ -13,7 +13,9 @@ const Profile = ({ name, desc, posts, handleEdit, handleDelete }) => {
             key={post._id}
             post={post}
             handleEdit={() => handleEdit && handleEdit(post)}
-            handleDelete={() => handleDelete && handleDelete(post)}
+            handleDelete={async () =>
+              handleDelete && (await handleDelete(post))
+            }
           />
         ))}
       </div>

@@ -29,7 +29,6 @@ const CreatePrompt = () => {
       });
 
       if (response.ok) {
-        console.log(session?.user);
         router.push('/');
       }
     } catch (error) {
